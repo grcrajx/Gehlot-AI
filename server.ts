@@ -1,5 +1,4 @@
 import express from "express";
-import { createServer as createViteServer } from "vite";
 import path from "path";
 import { fileURLToPath } from "url";
 import { GoogleGenAI } from "@google/genai";
@@ -35,7 +34,7 @@ app.post("/api/chat", async (req, res) => {
       const genAI = new GoogleGenAI({ apiKey });
       
       const response = await genAI.models.generateContent({
-        model: "gemini-1.5-flash",
+        model: "gemini-3-flash-preview",
         contents: messages.map((m: any) => ({
           role: m.role === "assistant" ? "model" : "user",
           parts: [{ text: m.content }]
@@ -80,6 +79,7 @@ app.post("/api/chat", async (req, res) => {
 
 async function setupServer() {
   if (process.env.NODE_ENV !== "production") {
+    const { createServer: createViteServer } = await import("vite");
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: "spa",
@@ -96,8 +96,10 @@ async function setupServer() {
 
 // Server listener setup
 const isVercel = process.env.VERCEL === "1" || process.env.VERCEL === "true";
+const isNetlify = process.env.NETLIFY === "true" || process.env.NETLIFY === "1";
+const isServerless = isVercel || isNetlify;
 
-if (!isVercel) {
+if (!isServerless) {
   setupServer().then(() => {
     const PORT = process.env.PORT || 3000;
     app.listen(Number(PORT), "0.0.0.0", () => {
@@ -105,8 +107,8 @@ if (!isVercel) {
     });
   });
 } else {
-  // In Vercel, we just export the app
-  setupServer();
+  // In serverless, we handle only the API routes. 
+  // Netlify and Vercel serve static files natively.
 }
 
 export default app;
