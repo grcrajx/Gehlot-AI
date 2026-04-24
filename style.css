@@ -1,0 +1,97 @@
+/* Custom Styles for GehlotAI Static Version */
+
+:root {
+    --color-brand-glow: rgba(99, 102, 241, 0.2);
+}
+
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #1e2530;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #2a313c;
+}
+
+/* Markdown Styles */
+#chat-messages p {
+    margin-bottom: 0.75rem;
+}
+
+#chat-messages p:last-child {
+    margin-bottom: 0;
+}
+
+#chat-messages pre {
+    background: #0b0e14;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    margin: 0.75rem 0;
+    overflow-x: auto;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+#chat-messages code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 0.9em;
+}
+
+#chat-messages ul, #chat-messages ol {
+    margin-left: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+#chat-messages li {
+    margin-bottom: 0.25rem;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.message-animate {
+    animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* Typing Indicator Animation */
+.typing-dot {
+    animation: typing 1.4s infinite;
+}
+
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typing {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+    30% { transform: translateY(-4px); opacity: 1; }
+}
+
+/* Hide Scrollbar but keep functionality */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Sticky Input Area Backdrop */
+#chat-input-container {
+    background: linear-gradient(180deg, transparent 0%, #0b0e14 100%);
+}
