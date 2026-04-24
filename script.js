@@ -7,7 +7,7 @@
 // TO DEPLOY ON GITHUB PAGES: Paste your Gemini API Key below.
 // Note: This key will be visible in the website source code.
 const CONFIG = {
-    GEMINI_API_KEY: "YOUR_API_KEY_HERE" 
+    GEMINI_API_KEY: "AIzaSyAGKVu1MBRXgtcoKcZvqPgWgGsonGY2G9Q" 
 };
 
 const SUBJECT_PROMPTS = {
