@@ -57,10 +57,7 @@
                     <div class="hidden md:flex items-center gap-8">
                         <a href="#features" class="text-sm font-medium text-text-dim hover:text-brand transition-colors">Features</a>
                         <a href="#subjects" class="text-sm font-medium text-text-dim hover:text-brand transition-colors">Subjects</a>
-                        <button onclick="switchView('developers')" class="text-sm font-medium text-text-dim hover:text-brand transition-colors">Developers</button>
-                        <button onclick="openSettings()" class="w-10 h-10 rounded-full bg-surface border border-white/10 flex items-center justify-center text-text-dim hover:text-brand hover:border-brand/50 transition-all">
-                            <i data-lucide="settings" class="w-5 h-5"></i>
-                        </button>
+                        <button onclick="switchView('developer')" class="text-sm font-medium text-text-dim hover:text-brand transition-colors">Developers</button>
                         <button onclick="switchView('chat')" class="px-5 py-2 bg-brand text-white text-sm font-bold rounded-full hover:bg-brand/90 transition-all shadow-[0_0_15px_rgba(99,102,241,0.4)]">
                             Start Learning
                         </button>
@@ -77,8 +74,7 @@
             <div id="mobile-menu" class="hidden md:hidden bg-sidebar border-b border-white/5 p-4 space-y-4">
                 <a href="#features" class="block text-lg font-medium text-text-dim" onclick="toggleMobileMenu()">Features</a>
                 <a href="#subjects" class="block text-lg font-medium text-text-dim" onclick="toggleMobileMenu()">Subjects</a>
-                <button onclick="switchView('developers')" class="block text-lg font-medium text-text-dim w-full text-left">Developers</button>
-                <button onclick="openSettings()" class="block text-lg font-medium text-text-dim w-full text-left">Settings</button>
+                <button onclick="switchView('developer')" class="block text-lg font-medium text-text-dim w-full text-left">Developers</button>
                 <button onclick="switchView('chat')" class="w-full py-3 bg-brand text-white font-bold rounded-xl shadow-lg">Start Learning</button>
             </div>
         </nav>
@@ -215,9 +211,6 @@
                     <h2 class="font-bold text-white" id="current-subject-title">General Tutor</h2>
                 </div>
                 <div class="flex items-center gap-2">
-                    <button onclick="openSettings()" class="w-9 h-9 rounded-lg bg-surface border border-white/10 flex items-center justify-center text-text-dim hover:text-brand transition-all">
-                        <i data-lucide="settings" class="w-4 h-4"></i>
-                    </button>
                     <button onclick="explainI5()" class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface border border-white/10 text-xs font-bold text-brand hover:bg-brand/10 transition-all">
                         <i data-lucide="baby" class="w-3.5 h-3.5"></i> Explain Like I'm 5
                     </button>
@@ -256,7 +249,7 @@
                 <p class="text-text-dim text-lg italic italic">"The driving force and creative inspiration behind the development of GehlotAI."</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
                 <div class="p-8 rounded-3xl bg-surface border border-white/5 text-left">
                     <h3 class="text-2xl font-bold text-white mb-1">Vamshi</h3>
                     <p class="text-brand font-bold uppercase text-xs tracking-widest mb-4">Software Architect</p>
@@ -269,43 +262,39 @@
                 </div>
             </div>
 
+            <div class="p-10 rounded-[2.5rem] bg-bg border border-white/10 text-left mb-16">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-12 h-12 bg-brand/20 rounded-full flex items-center justify-center text-brand">
+                        <i data-lucide="rocket"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-white">How to Deploy to GitHub Pages (ELI5)</h2>
+                        <p class="text-text-dim text-sm">Make GehlotAI live for everyone in 3 minutes</p>
+                    </div>
+                </div>
+                <div class="space-y-6 text-text-main">
+                    <div class="flex gap-4">
+                        <div class="w-8 h-8 rounded-full bg-surface border border-white/10 flex-shrink-0 flex items-center justify-center font-bold text-brand">1</div>
+                        <p><strong class="text-white">Get your Secret Key:</strong> Go to <a href="https://aistudio.google.com/app/apikey" class="text-brand underline" target="_blank">Google AI Studio</a> and copy your "Gemini API Key".</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="w-8 h-8 rounded-full bg-surface border border-white/10 flex-shrink-0 flex items-center justify-center font-bold text-brand">2</div>
+                        <p><strong class="text-white">Paste in script.js:</strong> Open <code class="bg-surface px-2 py-1 rounded text-brand">script.js</code> and paste your key in the <code class="bg-surface px-2 py-1 rounded text-brand">CONFIG</code> section at the very top.</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="w-8 h-8 rounded-full bg-surface border border-white/10 flex-shrink-0 flex items-center justify-center font-bold text-brand">3</div>
+                        <p><strong class="text-white">Push to GitHub:</strong> Commit your changes and push them to your repository.</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="w-8 h-8 rounded-full bg-surface border border-white/10 flex-shrink-0 flex items-center justify-center font-bold text-brand">4</div>
+                        <p><strong class="text-white">Go Live!</strong> In your GitHub Repo Settings, set the source to "Deploy from a branch" (usually <code class="bg-surface px-2 py-1 rounded text-brand">main</code>). Your site is ready!</p>
+                    </div>
+                </div>
+            </div>
+
             <button onclick="switchView('landing')" class="mt-20 text-brand font-bold hover:underline flex items-center gap-2 mx-auto">
                 <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Home
             </button>
-        </div>
-    </div>
-
-    <!-- Settings Modal -->
-    <div id="settings-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4 bg-bg/60 backdrop-blur-sm">
-        <div class="w-full max-w-md bg-surface border border-white/10 rounded-[2.5rem] p-8 shadow-2xl">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-2xl font-bold text-white font-display">Settings</h3>
-                <button onclick="closeSettings()" class="text-text-dim hover:text-white"><i data-lucide="x"></i></button>
-            </div>
-            
-            <div class="space-y-6">
-                <div>
-                    <label class="block text-xs font-bold text-text-dim uppercase tracking-widest mb-2">Gemini API Key</label>
-                    <div class="relative">
-                        <input 
-                            type="password" 
-                            id="api-key-input"
-                            placeholder="Enter your API Key..."
-                            class="w-full bg-bg border border-white/10 rounded-xl px-4 py-3 text-text-main focus:ring-2 ring-brand/50 outline-none transition-all"
-                        >
-                        <button onclick="toggleKeyVisibility()" class="absolute right-3 top-3 text-text-dim">
-                            <i data-lucide="eye" id="key-eye-icon" class="w-4 h-4"></i>
-                        </button>
-                    </div>
-                    <p class="mt-2 text-[10px] text-text-dim leading-relaxed">
-                        Your key is stored locally in your browser and never sent to any server except Google's Gemini API.
-                    </p>
-                </div>
-                
-                <button onclick="saveSettings()" class="w-full py-4 bg-brand text-white font-bold rounded-xl shadow-lg hover:bg-brand/90 transition-all">
-                    Save Configuration
-                </button>
-            </div>
         </div>
     </div>
 
