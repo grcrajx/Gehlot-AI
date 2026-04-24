@@ -18,7 +18,8 @@ let state = {
     view: 'landing',
     messages: JSON.parse(localStorage.getItem('messages') || '[]'),
     currentSubject: 'General',
-    isLoading: false
+    isLoading: false,
+    apiKey: localStorage.getItem('gemini_api_key') || ''
 };
 
 // --- Initialization ---
@@ -108,6 +109,12 @@ async function handleSend() {
     const text = input.value.trim();
     
     if (!text || state.isLoading) return;
+
+    if (!state.apiKey) {
+        openSettings();
+        alert("Please provide your Gemini API Key in the settings first.");
+        return;
+    }
     
     // Add User Message
     const userMsg = { role: 'user', content: text };
@@ -124,25 +131,22 @@ async function handleSend() {
     
     try {
         const { GoogleGenAI } = await import('https://esm.run/@google/genai');
-        const apiKey = process.env.GEMINI_API_KEY;
         
-        if (!apiKey || apiKey === "REPLACE_WITH_YOUR_API_KEY") {
-            throw new Error("Missing API Key");
-        }
-
-        const ai = new GoogleGenAI({ apiKey });
-        const response = await ai.models.generateContent({
+        const ai = new GoogleGenAI(state.apiKey);
+        const model = ai.getGenerativeModel({ 
             model: "gemini-1.5-flash",
+            systemInstruction: SUBJECT_PROMPTS[state.currentSubject]
+        });
+
+        const result = await model.generateContent({
             contents: state.messages.map(m => ({
                 role: m.role === 'assistant' ? 'model' : 'user',
                 parts: [{ text: m.content }]
-            })),
-            config: {
-                systemInstruction: SUBJECT_PROMPTS[state.currentSubject]
-            }
+            }))
         });
         
-        const aiText = response.text;
+        const response = await result.response;
+        const aiText = response.text();
         
         removeLoading();
         const aiMsg = { role: 'assistant', content: aiText };
@@ -215,6 +219,47 @@ function explainI5() {
         handleSend();
     }
 }
+
+// --- Settings Logic ---
+function openSettings() {
+    const modal = document.getElementById('settings-modal');
+    const input = document.getElementById('api-key-input');
+    input.value = state.apiKey;
+    modal.classList.remove('hidden');
+}
+
+function closeSettings() {
+    document.getElementById('settings-modal').classList.add('hidden');
+}
+
+function saveSettings() {
+    const input = document.getElementById('api-key-input');
+    const key = input.value.trim();
+    state.apiKey = key;
+    localStorage.setItem('gemini_api_key', key);
+    closeSettings();
+}
+
+function toggleKeyVisibility() {
+    const input = document.getElementById('api-key-input');
+    const icon = document.getElementById('key-eye-icon');
+    const isPassword = input.type === 'password';
+    input.type = isPassword ? 'text' : 'password';
+    icon.setAttribute('data-lucide', isPassword ? 'eye-off' : 'eye');
+    lucide.createIcons();
+}
+
+// --- Expose to Window ---
+window.switchView = switchView;
+window.startSubject = startSubject;
+window.toggleMobileMenu = toggleMobileMenu;
+window.handleSend = handleSend;
+window.clearChat = clearChat;
+window.explainI5 = explainI5;
+window.openSettings = openSettings;
+window.closeSettings = closeSettings;
+window.saveSettings = saveSettings;
+window.toggleKeyVisibility = toggleKeyVisibility;
 
 // --- Utils ---
 function setupEventListeners() {
